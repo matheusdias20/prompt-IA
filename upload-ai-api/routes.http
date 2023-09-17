@@ -1,0 +1,43 @@
+# @name get-prompts
+GET http://localhost:3333/prompts
+
+
+###
+
+
+# @name upload
+POST http://localhost:3333/videos
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="labirinto.mp3"
+Content-Type: audio/mpeg
+
+< ./labirinto.mp3
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+
+###
+
+
+# @name create-transcription
+POST http://localhost:3333/videos/ec864914-7e56-4050-9655-d7b05309ebb2/transcription
+Content-Type: application/json
+
+{
+  "prompt": "lambda, shelton melo, podcast, jovem, nerd"
+}
+
+
+###
+
+
+# @name generate-ai-completion
+POST http://localhost:3333/ai/generate
+Content-Type: application/json
+
+{
+  "videoId": "ec864914-7e56-4050-9655-d7b05309ebb2",
+  "prompt": " Gere um resumo sucinto da transcrição do vídeo informada a seguir: '''{transcription}''' ",
+  "temperature": 0.5
+}
